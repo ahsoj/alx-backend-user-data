@@ -12,15 +12,15 @@ patterns = {
     "extract": lambda x, y: r"(?P<field>{})=[^{}]*".format("|".join(x), y),
     "replace": lambda x: r"\g<field>={}".format(x),
 }
-extract, replace = (patterns["extract"], patterns["replace"])
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
 def filter_datum(
-    fields: List[str], reduction: str, message: str, separator: str
+    fields: List[str], redaction: str, message: str, separator: str
 ) -> str:
     """filter logger"""
-    return re.sub(extract(fields, separator), replace(reduction), message)
+    extract, replace = (patterns["extract"], patterns["replace"])
+    return re.sub(extract(fields, separator), replace(redaction), message)
 
 
 def get_logger() -> logging.Logger:
