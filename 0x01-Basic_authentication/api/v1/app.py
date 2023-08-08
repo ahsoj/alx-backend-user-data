@@ -25,18 +25,18 @@ if auth_type == "basic_auth":
 
 @app.before_request
 def authenticate_user():
+    """Authenticate before any request"""
     paths = [
         "/api/v1/status/",
         "/api/v1/unauthorized/",
         "/api/v1/forbidden/",
     ]
-    if auth is None:
-        return
-    if auth.require_auth(request.path, paths):
-        if not auth.authorization_header(request):
-            abort(401)
-        if not auth.current_user(request):
-            abort(403)
+    if auth:
+        if auth.require_auth(request.path, paths):
+            if not auth.authorization_header(request):
+                abort(401)
+            if not auth.current_user(request):
+                abort(403)
 
 
 @app.errorhandler(401)
