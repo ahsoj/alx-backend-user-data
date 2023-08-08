@@ -10,6 +10,8 @@ from flask import request
 
 
 class Auth:
+    """Auth module class."""
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """return Flase"""
         if path is None or excluded_paths is None or not excluded_paths:
