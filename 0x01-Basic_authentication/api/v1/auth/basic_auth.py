@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """Basic Auth module.
 """
 
@@ -79,7 +79,7 @@ class BasicAuth(Auth):
         return None
 
     def current_user(self, request=None) -> TypeVar("User"):
-        """Retrieves the user from a request."""
+        """Retrieves the user for a request."""
         auth_header = self.authorization_header(request)
         b64_auth_token = self.extract_base64_authorization_header(auth_header)
         auth_token = self.decode_base64_authorization_header(b64_auth_token)
